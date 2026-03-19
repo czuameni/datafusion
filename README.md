@@ -75,7 +75,7 @@ pyinstaller --onefile --windowed --icon=icon.ico main.py
 ![Before](screenshots/before.png)
 
 ### After Processing
-![Before](screenshots/before.png)
+![After](screenshots/after.png)
 
 ---
 
