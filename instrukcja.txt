@@ -1,0 +1,87 @@
+DATAFUSION – INSTRUKCJA OBSŁUGI
+
+1. WPROWADZENIE
+   DataFusion to aplikacja do łączenia danych z wielu plików (CSV, Excel), czyszczenia ich, usuwania duplikatów i eksportu gotowych wyników.
+
+---
+
+2. URUCHOMIENIE
+
+* Uruchom plik main.py lub gotowy plik .exe
+* Otworzy się okno aplikacji
+
+---
+
+3. IMPORT PLIKÓW
+
+* Kliknij „Upload Files”
+* Wybierz jeden lub więcej plików (.csv, .xlsx, .xls)
+* Po załadowaniu pojawi się lista kolumn
+
+---
+
+4. MAPPING (PRZYPISANIE KOLUMN)
+
+* W zakładce „Mapping” przypisz kolumny do standardowych pól:
+  name, email, phone, address, website, notes
+* Możesz użyć sugestii lub ustawić ręcznie
+
+---
+
+5. ZAPIS / WCZYTANIE MAPPINGU
+
+* „Save Mapping” – zapisuje ustawienia do pliku .json
+* „Load Mapping” – wczytuje wcześniej zapisany mapping
+
+---
+
+6. PRZETWARZANIE DANYCH
+
+* Kliknij „Process”
+* Aplikacja:
+
+  * czyści dane
+  * mapuje kolumny
+  * usuwa duplikaty
+  * łączy rekordy
+
+---
+
+7. ZAKŁADKI
+
+* Mapping – konfiguracja kolumn
+* Before – dane przed deduplikacją
+* After – dane po przetworzeniu (można edytować)
+* Stats – statystyki (liczba rekordów, duplikaty)
+* Duplicates – lista wykrytych grup duplikatów
+
+---
+
+8. EKSPORT DANYCH
+
+* Kliknij „Export”
+* Wybierz format (.csv lub .xlsx)
+* Plik zostanie zapisany
+
+---
+
+9. EKSPORT RAPORTU
+
+* Kliknij „Export Report”
+* Zapisze plik .json z informacjami:
+
+  * liczba rekordów wejściowych
+  * liczba rekordów wyjściowych
+  * liczba usuniętych duplikatów
+
+---
+
+10. UWAGI
+
+* Email traktowany jest jako unikalny identyfikator
+* Dane w zakładce „After” można edytować ręcznie
+* Mapping warto zapisać dla powtarzalnych importów
+
+---
+
+KONIEC
