@@ -46,70 +46,55 @@ class MainWindow(QMainWindow):
         container = QWidget()
         layout = QVBoxLayout()
 
-        # 🔹 Upload
         self.upload_btn = QPushButton("Upload Files")
         self.upload_btn.clicked.connect(self.upload_files)
         layout.addWidget(self.upload_btn)
 
-        # 🔹 Status
         self.status_label = QLabel("No files loaded")
         layout.addWidget(self.status_label)
 
-        # 🔹 Process
         self.process_btn = QPushButton("Process")
         self.process_btn.clicked.connect(self.process_data)
         layout.addWidget(self.process_btn)
 
-        # 🔹 Status
         self.process_status = QLabel("")
         layout.addWidget(self.process_status)
 
-        # 🔹 Progress bar
         self.progress = QProgressBar()
         self.progress.setValue(0)
         layout.addWidget(self.progress)
 
-        # 🔹 Export
         self.export_btn = QPushButton("Export")
         self.export_btn.clicked.connect(self.export_data)
         layout.addWidget(self.export_btn)
 
-        # 🔹 Export Report
         self.export_report_btn = QPushButton("Export Report")
         self.export_report_btn.clicked.connect(self.export_report)
         layout.addWidget(self.export_report_btn)
 
-        # 🔹 Save Mapping
         self.save_mapping_btn = QPushButton("Save Mapping")
         self.save_mapping_btn.clicked.connect(self.save_mapping)
         layout.addWidget(self.save_mapping_btn)
 
-        # 🔹 Load Mapping
         self.load_mapping_btn = QPushButton("Load Mapping")
         self.load_mapping_btn.clicked.connect(self.load_mapping)
         layout.addWidget(self.load_mapping_btn)
 
-        # 🔹 Tabs
         self.tabs = QTabWidget()
 
-        # TAB 1 — Mapping
         self.mapping_view = MappingView()
         self.tabs.addTab(self.mapping_view, "Mapping")
 
-        # TAB 2 — Before
         self.preview_before = PreviewView()
         self.preview_before.table.setEditTriggers(self.preview_before.table.EditTrigger.NoEditTriggers)
         self.tabs.addTab(self.preview_before, "Before")
 
-        # TAB 3 — After
         self.preview_after = PreviewView()
         self.tabs.addTab(self.preview_after, "After")
 
-        # TAB 4 — Stats
         self.stats = StatsView()
         self.tabs.addTab(self.stats, "Stats")
 
-        # TAB 5 — Duplicates
         self.duplicates_list = QListWidget()
         self.tabs.addTab(self.duplicates_list, "Duplicates")
 
@@ -118,7 +103,6 @@ class MainWindow(QMainWindow):
         container.setLayout(layout)
         self.setCentralWidget(container)
 
-    # 📥 UPLOAD FILES
     def upload_files(self):
         files, _ = QFileDialog.getOpenFileNames(
             self,
@@ -140,7 +124,6 @@ class MainWindow(QMainWindow):
 
             print("📊 Columns detected:", list(df.columns))
 
-            # 🧠 Auto mapping
             mapping = self.mapper.suggest(df.columns)
 
             print("🧠 Suggested mapping:", mapping)
@@ -150,7 +133,6 @@ class MainWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load files:\n{e}")
 
-    # 🔄 PROCESS DATA
     def process_data(self):
 
         if not self.files:
@@ -166,7 +148,6 @@ class MainWindow(QMainWindow):
         print("🚀 Processing started...")
         print("📌 Mapping used:", mapping)
 
-        # 🔹 START status + progress
         self.process_status.setText("Processing...")
         self.progress.setValue(20)
 
@@ -193,7 +174,6 @@ class MainWindow(QMainWindow):
                 if len(group) > 1:
                     self.duplicates_list.addItem(f"Group {i+1}: {len(group)} records")
 
-            # 🔹 KONIEC status + progress
             self.progress.setValue(100)
             self.process_status.setText("Done")
 
@@ -298,13 +278,11 @@ class MainWindow(QMainWindow):
             with open(path, "r") as f:
                 mapping = json.load(f)
 
-            # 🔥 pobierz aktualne kolumny z tabeli
             columns = []
             for row in range(self.mapping_view.table.rowCount()):
                 col_name = self.mapping_view.table.item(row, 0).text()
                 columns.append(col_name)
 
-            # 🔥 ustaw mapping w UI
             self.mapping_view.set_columns(columns, mapping)
 
             QMessageBox.information(self, "Success", "Mapping loaded")
